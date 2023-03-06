@@ -1,0 +1,58 @@
+openapi: 3.0.0
+info:
+  title: FizzBuzz Service
+  version: "1.0"
+servers:
+- url: http://localhost:3000
+paths:
+  /fizzbuzz:
+    post:
+      description: Get a fizzbuzz message
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/_fizzbuzz_post_request'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultResponse'
+          description: Successful operation
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultResponse'
+          description: Invalid count value
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultResponse'
+          description: Invalid
+      summary: Get a fizzbuzz message
+components:
+  schemas:
+    DefaultResponse:
+      example:
+        message: message
+        status: 200
+      properties:
+        status:
+          example: 200
+          type: number
+        message:
+          type: string
+      required:
+      - message
+      - status
+      type: object
+    _fizzbuzz_post_request:
+      properties:
+        count:
+          description: A count number to get FizzBuzz message
+          type: number
+      type: object
